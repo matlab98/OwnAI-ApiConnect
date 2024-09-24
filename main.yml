@@ -1,0 +1,23 @@
+# .github/workflows/main.yml
+name: Run Python Script
+
+on: [push]
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run Python script
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}  # Acceso al secreto
+      run: |
+        python main.py
